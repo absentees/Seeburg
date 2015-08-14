@@ -1,0 +1,10 @@
+<section class="rooms-container">
+  <div class="rooms-operations">
+    <input type="text" id="new-room" name="title" placeholder="Example Room Title" />
+    <a href="#">ADD ROOM</a>
+  </div>
+  <!-- Room item -->
+  {{#each room in model}}
+    {{room-item room=room}}
+  {{/each}}
+</section>
