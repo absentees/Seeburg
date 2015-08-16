@@ -1,12 +1,13 @@
 import Ember from 'ember';
 
+var testRooms = [{
+    title: "Room toony"
+  }, {
+    title: "Room boomy"
+}];
+
 export default Ember.Route.extend({
-  model: function(){
-    return this.store.find('room');
-  },
-  actions: {
-    createRoom: function(newRoom){
-      //var room = this.
-    }
+  model() {
+    return testRooms;
   }
 });
