@@ -1,28 +1,14 @@
 <head>
   <title>seeburg-app</title>
-  <link href='https://fonts.googleapis.com/css?family=Roboto:100' rel='stylesheet' type='text/css'>
-  <style>
-    *{
-      font-family: 'Roboto', sans-serif;
-    }
-    .container{
-      margin: 50px 0 0 50px;
-    }
-    ul{
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-    }
-    ul li{
-      margin: 5px 0;
-    }
-  </style>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:100,400,600' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="width=device-width">
+
 </head>
 <body>
   <div>
     <div class="container">
       <h1>seeburg-app</h1>
-
+      {{> addRoomForm}}
       {{> roomList}}
 
     </div>
@@ -31,7 +17,23 @@
 <template name="roomList">
   <ul>
     {{#each room}}
-      <li>{{title}}</li>
+      <li class="roomItem {{selectedClass}}">{{title}} - Likes: {{likes}}</li>
     {{/each}}
   </ul>
+  <p>
+    <strong>Selected Room:</strong>
+    {{#if showSelectedRoom}}
+       {{showSelectedRoom.title}}<br>
+      <input type="button" class="like" value="Like">
+      <input type="button" class="unlike" value="Unlike">
+      <input type="button" class="remove" value="Remove Room">
+    {{/if}}
+
+  </p>
+</template>
+<template name="addRoomForm">
+  <form>
+    <input type="text" name="roomTitle">
+    <input type="submit" value="Add Room">
+  </form>
 </template>
