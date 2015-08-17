@@ -1,0 +1,37 @@
+<head>
+  <title>seeburg-app</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:100' rel='stylesheet' type='text/css'>
+  <style>
+    *{
+      font-family: 'Roboto', sans-serif;
+    }
+    .container{
+      margin: 50px 0 0 50px;
+    }
+    ul{
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    ul li{
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="container">
+      <h1>seeburg-app</h1>
+
+      {{> roomList}}
+
+    </div>
+  </div>
+</body>
+<template name="roomList">
+  <ul>
+    {{#each room}}
+      <li>{{title}}</li>
+    {{/each}}
+  </ul>
+</template>
