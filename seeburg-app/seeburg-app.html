@@ -10,7 +10,7 @@
       <h1>seeburg-app</h1>
       {{> addRoomForm}}
       {{> roomList}}
-
+      {{> loginButtons}}
     </div>
   </div>
 </body>
@@ -32,8 +32,10 @@
   </p>
 </template>
 <template name="addRoomForm">
+  {{ #if currentUser }}
   <form>
     <input type="text" name="roomTitle">
     <input type="submit" value="Add Room">
   </form>
+  {{ /if }}
 </template>

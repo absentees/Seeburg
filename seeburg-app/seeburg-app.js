@@ -1,9 +1,13 @@
+RoomsList = new Mongo.Collection('rooms');
+
+
 if(Meteor.isClient){
     // this code only runs on the client
-    console.log("Hello client");
+    Meteor.subscribe('theRooms');
 
     Template.roomList.helpers({
       'room': function(){
+        var currentUserId = Meteor.userId();
         return RoomsList.find({}, { sort: { likes: -1, title: 1 } });
       },
       'listener': function(){
@@ -45,20 +49,31 @@ if(Meteor.isClient){
       'submit form': function(event){
         event.preventDefault();
         var roomTitleVar = event.target.roomTitle.value;
+        var currentUserId = Meteor.userId();
         var newRoomId = RoomsList.insert({
           title: roomTitleVar,
-          likes: 0
+          likes: 0,
+          createdBy: currentUserId
         });
         event.target.roomTitle.value = "";
         Session.set('selectedRoom', newRoomId);
+        Meteor.call('sendLogMessage');
       }
     });
 }
 
 if(Meteor.isServer){
     // this code only runs on the server
-    //console.log("Hello server");
+    Meteor.publish('theRooms',function(){
+      var currentUserId = this.userId;
+      return RoomsList.find({
+        createdBy: currentUserId
+      });
+    });
 
+    Meteor.methods({
+      'sendLogMessage': function(){
+        console.log("Hello world");
+      }
+    });
 }
-
-RoomsList = new Mongo.Collection('rooms');
