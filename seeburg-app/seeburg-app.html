@@ -5,40 +5,32 @@
 
 </head>
 <body>
+
+</body>
+
+<template name="main">
   <div>
     <div class="container">
       ***************************************************
       <h1>seeburg-app</h1>
       <h2>an online jukebox for you and your friends</h2>
       ***************************************************
-      {{> addRoomForm}}
-      {{> roomList}}
-      {{> loginButtons}}
+
+      {{> yield}}
+
     </div>
   </div>
-</body>
-<template name="roomList">
-  <ul>
-    {{#each room}}
-      <li class="roomItem {{selectedClass}}">{{title}} - Likes: {{likes}}</li>
-    {{/each}}
-  </ul>
-  <p>
-    <strong>Selected Room:</strong>
-    {{#if showSelectedRoom}}
-       {{showSelectedRoom.title}}<br>
-      <input type="button" class="like" value="Like">
-      <input type="button" class="unlike" value="Unlike">
-      <input type="button" class="remove" value="Remove Room">
-    {{/if}}
-
-  </p>
 </template>
-<template name="addRoomForm">
-  {{ #if currentUser }}
-  <form>
-    <input type="text" name="roomTitle">
-    <input type="submit" value="Add Room">
+
+<template name="loading">
+  <p>loading...</p>
+</template>
+
+<template name="home">
+  <p>
+    enter your email address for a closed beta invite code.
+  </p>
+  <form class="request">
+    <input type="text"><input type="submit" value="request">    
   </form>
-  {{ /if }}
 </template>
