@@ -8,3 +8,5 @@ meteor-platform
 accounts-password
 accounts-ui
 iron:router
+themeteorchef:jquery-validation
+email
