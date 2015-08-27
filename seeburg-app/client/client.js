@@ -1,7 +1,30 @@
+Template.home.onRendered(function(){
+  var validator = $('.request').validate({
+    submitHandler: function(event){
+      var recipientAddress = $('[name=email]').val();
+      Meteor.call('requestInvite', recipientAddress);
+      Router.go("thanks");
+    }
+  })
+});
+
 Template.home.events({
   'submit form': function(event){
     event.preventDefault();
-    var recipientAddress = $('[name=email]').val();
-    Meteor.call('requestInvite', recipientAddress);
   }
-})
+});
+
+$.validator.setDefaults({
+  rules: {
+    email: {
+      required: true,
+      email: true
+    }
+  },
+  messages: {
+    email: {
+      required: "you must enter an email address",
+      email: "you have entered an invalid email"
+    }
+  }
+});

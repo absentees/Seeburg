@@ -1,4 +1,4 @@
-//InviteKeys = new Meteor.Collection('invitekeys');
+Invites = new Meteor.Collection('invites');
 //Rooms = new Meteor.Collection('rooms');
 //Tracks = new Meteor.Collection('tracks');
 
@@ -8,5 +8,7 @@ Router.configure({
 });
 
 Router.route('/', {
-  template: 'holding'
+  template: 'home'
 });
+
+Router.route('/thanks');
