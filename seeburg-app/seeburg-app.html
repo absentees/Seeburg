@@ -31,12 +31,14 @@
     enter your email address for an invite code.
   </p>
   <form class="request">
-    <input type="email" name="email" class="required email"><input type="submit" value="request">
+    <p><input type="email" name="email" class="required email"><input type="submit" value="request"></p>
+    <label id="email-error" class="error" for="email"></label>
   </form>
 </template>
 
 <template name="thanks">
   <p>thank you, please check your email for your invite code.</p>
+  <p><a href="{{pathFor route='home'}}">back to home</a></p>
 </template>
 
 <template name="holding">

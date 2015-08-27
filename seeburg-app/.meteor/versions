@@ -65,6 +65,7 @@ spacebars-compiler@1.0.6
 srp@1.0.3
 templating@1.1.1
 themeteorchef:jquery-validation@1.14.0
+timbrandin:hashids@1.0.0
 tracker@1.0.7
 ui@1.0.6
 underscore@1.0.3

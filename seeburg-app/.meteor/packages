@@ -11,3 +11,4 @@ iron:router
 themeteorchef:jquery-validation
 email
 msavin:mongol
+timbrandin:hashids
