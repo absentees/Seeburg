@@ -3,7 +3,9 @@ Meteor.methods({
     this.unblock();
     var inviteCode = Meteor.hashid();
 
-    var existingUser = Invites.find({ email: recipientEmail }).count();
+    var existingUser = Invites.find({
+      email: recipientEmail
+    }).count();
     console.log(existingUser);
     if (existingUser > 0) {
       throw new Meteor.Error("already-exists", "email address has already requested invite code");
@@ -19,7 +21,7 @@ Meteor.methods({
       email: recipientEmail,
       sentcode: true,
       code: inviteCode
-    }, function(error,result){
+    }, function(error, result) {
       if (error) {
         return error;
       } else {
