@@ -13,3 +13,4 @@ Router.route('/', {
 });
 
 Router.route('/thanks');
+Router.route('/login');

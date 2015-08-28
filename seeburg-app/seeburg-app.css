@@ -37,6 +37,13 @@ input[name=email]{
   border-bottom: 1px solid black;
 }
 
+input[name=password]{
+  border: none;
+  background: none;
+  cursor:pointer;
+  border-bottom: 1px solid black;
+}
+
 input[name=email]:hover{
   cursor: text;
 }

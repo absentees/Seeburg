@@ -15,7 +15,7 @@
       <h1>seeburg-app</h1>
       <h2>an online jukebox for you and your friends</h2>
       ***************************************************
-
+      {{> navigation }}
       {{> yield}}
 
     </div>
@@ -43,4 +43,15 @@
 
 <template name="holding">
   <p>coming soon...</p>
+</template>
+
+<template name="navigation">
+  <p><a href="{{pathFor route='home'}}">home</a> | <a href="{{pathFor route='login'}}">login</a> | <a href="{{pathFor route='register'}}">register</a> | <a href="{{pathFor route='new room'}}">new room</a></p>
+</template>
+
+<template name="login">
+  <form class="login">
+    <p>login: <input type="email" name="email" required></p>
+    <p>password: <input type="password" name="password" required> <input type="submit" value="login"></p>
+  </form>
 </template>
