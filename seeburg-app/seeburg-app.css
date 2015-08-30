@@ -44,11 +44,11 @@ input[name=password]{
   border-bottom: 1px solid black;
 }
 
-input[name=email]:hover{
+input[name=email]:hover, input[name=password]:hover{
   cursor: text;
 }
 
-input[name=email]:focus{
+input[name=email]:focus, input[name=password]:focus{
   cursor: default;
   outline: none;
 }

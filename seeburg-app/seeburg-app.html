@@ -46,12 +46,13 @@
 </template>
 
 <template name="navigation">
-  <p><a href="{{pathFor route='home'}}">home</a> | <a href="{{pathFor route='login'}}">login</a> | <a href="{{pathFor route='register'}}">register</a> | <a href="{{pathFor route='new room'}}">new room</a></p>
+  <p><a href="{{pathFor route='home'}}">home</a> | {{ #if currentUser }}<a href="{{pathFor route='new room'}}">new room</a> {{else}}<a href="{{pathFor route='login'}}">login</a>{{/if}}</p>
 </template>
 
 <template name="login">
+  <p>we are currently not accepting registrations, in the mean time you can <a href="{{pathFor route='home'}}">get your invite code</a> for when beta begins.</p>
   <form class="login">
-    <p>login: <input type="email" name="email" required></p>
+    <p>login: <input type="email" name="email" required> <label id="email-error" class="error" for="email"></label></p>
     <p>password: <input type="password" name="password" required> <input type="submit" value="login"></p>
   </form>
 </template>
