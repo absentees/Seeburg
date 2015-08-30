@@ -1,5 +1,5 @@
 Invites = new Meteor.Collection('invites');
-//Rooms = new Meteor.Collection('rooms');
+Rooms = new Meteor.Collection('rooms');
 //Tracks = new Meteor.Collection('tracks');
 
 Router.configure({
@@ -14,3 +14,8 @@ Router.route('/', {
 
 Router.route('/thanks');
 Router.route('/login');
+Router.route('/register');
+Router.route('/rooms/new', {
+  name: 'newRoomPage',
+  template: 'newRoomPage'
+});

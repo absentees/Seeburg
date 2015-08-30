@@ -1,6 +1,7 @@
 *{
   font-family: 'Cutive Mono', monospace;
   font-size: 13px;
+  line-height: 18px;
   font-weight: 400;
   color: black;
 }
@@ -30,25 +31,18 @@ ul li{
   background-color: yellow;
 }
 
-input[name=email]{
+input{
   border: none;
   background: none;
   cursor:pointer;
   border-bottom: 1px solid black;
 }
 
-input[name=password]{
-  border: none;
-  background: none;
-  cursor:pointer;
-  border-bottom: 1px solid black;
-}
-
-input[name=email]:hover, input[name=password]:hover{
+input:hover{
   cursor: text;
 }
 
-input[name=email]:focus, input[name=password]:focus{
+input:focus{
   cursor: default;
   outline: none;
 }

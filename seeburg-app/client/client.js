@@ -1,3 +1,15 @@
+Template.home.helpers({
+  'room': function(){
+    return Rooms.find({
+      createdBy: currentUser
+    })
+  }
+})
+
+Template.home.onCreated(function(){
+  this.subscribe('rooms');
+});
+
 Template.home.onRendered(function() {
   var validator = $('.request').validate({
     submitHandler: function(event) {
@@ -29,12 +41,21 @@ Template.login.events({
 
 Template.login.onRendered(function(){
   var validator = $('.login').validate({
+    rules: {
+      emailAddress: {
+        required: true,
+        email: true
+      },
+      password: {
+        required: true
+      }
+    },
     submitHandler: function(event){
       var email = $('[name=email]').val();
       var password = $('[name=password]').val();
       Meteor.loginWithPassword(email,password, function(err){
         if(err){
-
+          console.log(err.reason);
           if (err.reason == "User not found") {
             validator.showErrors({
               email: "that email does not exist to a registered user."
@@ -56,6 +77,16 @@ Template.login.onRendered(function(){
   })
 });
 
+
+Template.newRoomPage.events({
+  'submit form': function(event){
+    event.preventDefault();
+    var roomName = $('[name=roomName]').val();
+    Meteor.call('createNewRoom');
+  }
+});
+
+
 $.validator.setDefaults({
   rules: {
     email: {
@@ -63,8 +94,7 @@ $.validator.setDefaults({
       email: true
     },
     password: {
-      required: true,
-      minlength: 6
+      required: true
     }
   },
   messages: {

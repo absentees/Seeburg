@@ -29,5 +29,30 @@ Meteor.methods({
         console.log(Invites.find().fetch());
       }
     });
+  },
+  'createNewRoom': function(roomName){
+    var currentUser = Meteor.userId();
+    if(listName == ""){
+      listName = "untitled room";
+    }
+    check(roomName, String);
+    var data = {
+      name: roomName,
+      createdBy: currentUser,
+      createdOn: Date.now()
+    };
+    if (!currentUser) {
+      throw new Meteor.Error("not-logged-in", "you are not logged in.");
+    }
+    Rooms.insert(data);
   }
+
+
+
+
+})
+
+Meteor.publish('rooms',function(currentList){
+  var currentUser = this.userId;
+  return Rooms.find({ createdBy: currentUser });
 })
