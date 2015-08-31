@@ -32,8 +32,8 @@ Meteor.methods({
   },
   'createNewRoom': function(roomName) {
     var currentUser = Meteor.userId();
-    if (listName == "") {
-      listName = "untitled room";
+    if (roomName == "") {
+      roomName = "untitled room";
     }
     check(roomName, String);
     var data = {
@@ -44,11 +44,11 @@ Meteor.methods({
     if (!currentUser) {
       throw new Meteor.Error("not-logged-in", "you are not logged in.");
     }
-    Rooms.insert(data);
+    return Rooms.insert(data);
   }
 });
 
-Meteor.publish('rooms', function(currentList) {
+Meteor.publish('rooms', function() {
   var currentUser = this.userId;
   return Rooms.find({
     createdBy: currentUser

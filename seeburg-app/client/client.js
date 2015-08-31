@@ -1,10 +1,8 @@
-Template.home.helpers({
+Template.roomList.helpers({
   'room': function() {
-    return Rooms.find({
-      createdBy: currentUser
-    })
+    return Rooms.find({},{sort: { name: 1 }});
   }
-})
+});
 
 Template.home.onCreated(function() {
   this.subscribe('rooms');
@@ -82,7 +80,8 @@ Template.newRoomPage.events({
   'submit form': function(event) {
     event.preventDefault();
     var roomName = $('[name=roomName]').val();
-    Meteor.call('createNewRoom');
+    var roomId = Meteor.call('createNewRoom', roomName);
+    Router.go('/room/' + roomId);
   }
 });
 

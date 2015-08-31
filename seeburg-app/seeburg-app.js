@@ -15,7 +15,20 @@ Router.route('/', {
 Router.route('/thanks');
 Router.route('/login');
 Router.route('/register');
-Router.route('/rooms/new', {
+Router.route('/room/new', {
   name: 'newRoomPage',
   template: 'newRoomPage'
+});
+Router.route('/room/:_id',{
+  name: 'roomPage',
+  template: 'roomPage',
+  data: function(){
+    var currentRoom = this.params._id;
+    return Rooms.findOne({
+      _id: currentRoom
+    });
+  },
+  waitOn: function(){
+    return Meteor.subscribe("rooms");
+  }
 });

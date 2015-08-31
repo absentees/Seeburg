@@ -15,7 +15,9 @@
       ***************************************************
       <h1>seeburg-app</h1>
       <h2>an online jukebox for you and your friends</h2>
-      *************************************************** {{> navigation }} {{> yield}}
+      ***************************************************
+      {{> navigation }}
+      {{> yield}}
 
     </div>
   </div>
@@ -29,7 +31,8 @@
 
   {{#if currentUser}}
   <p>your rooms:</p>
-  {{> roomList }} {{else}}
+  {{> roomList }}
+  {{else}}
   <p>
     enter your email address for an invite code.
   </p>
@@ -46,9 +49,15 @@
 <template name="roomList">
   <ul>
     {{#each room}}
-    <li>{{name}}</li>
+    <li>> <a href="{{pathFor route="roomPage"}}">{{name}}</a></li>
     {{/each}}
   </ul>
+</template>
+
+<template name="roomPage">
+  <p>room: {{ name }}</p>
+  <p>now playing: </p>
+  <p>up next:</p>
 </template>
 
 <template name="thanks">
