@@ -30,9 +30,9 @@ Meteor.methods({
       }
     });
   },
-  'createNewRoom': function(roomName){
+  'createNewRoom': function(roomName) {
     var currentUser = Meteor.userId();
-    if(listName == ""){
+    if (listName == "") {
       listName = "untitled room";
     }
     check(roomName, String);
@@ -46,13 +46,11 @@ Meteor.methods({
     }
     Rooms.insert(data);
   }
+});
 
-
-
-
-})
-
-Meteor.publish('rooms',function(currentList){
+Meteor.publish('rooms', function(currentList) {
   var currentUser = this.userId;
-  return Rooms.find({ createdBy: currentUser });
-})
+  return Rooms.find({
+    createdBy: currentUser
+  });
+});

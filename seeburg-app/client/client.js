@@ -1,12 +1,12 @@
 Template.home.helpers({
-  'room': function(){
+  'room': function() {
     return Rooms.find({
       createdBy: currentUser
     })
   }
 })
 
-Template.home.onCreated(function(){
+Template.home.onCreated(function() {
   this.subscribe('rooms');
 });
 
@@ -34,12 +34,12 @@ Template.home.events({
 });
 
 Template.login.events({
-  'submit form': function(event){
+  'submit form': function(event) {
     event.preventDefault();
   }
 });
 
-Template.login.onRendered(function(){
+Template.login.onRendered(function() {
   var validator = $('.login').validate({
     rules: {
       emailAddress: {
@@ -50,11 +50,11 @@ Template.login.onRendered(function(){
         required: true
       }
     },
-    submitHandler: function(event){
+    submitHandler: function(event) {
       var email = $('[name=email]').val();
       var password = $('[name=password]').val();
-      Meteor.loginWithPassword(email,password, function(err){
-        if(err){
+      Meteor.loginWithPassword(email, password, function(err) {
+        if (err) {
           console.log(err.reason);
           if (err.reason == "User not found") {
             validator.showErrors({
@@ -66,7 +66,7 @@ Template.login.onRendered(function(){
               password: "you entered an incorrect password."
             })
           }
-        } else{
+        } else {
           var currentRouter = Router.current().route.getName();
           if (currentRoute == "login") {
             Router.go("home");
@@ -79,7 +79,7 @@ Template.login.onRendered(function(){
 
 
 Template.newRoomPage.events({
-  'submit form': function(event){
+  'submit form': function(event) {
     event.preventDefault();
     var roomName = $('[name=roomName]').val();
     Meteor.call('createNewRoom');
