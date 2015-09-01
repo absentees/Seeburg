@@ -9,7 +9,15 @@ Router.configure({
 
 Router.route('/', {
   name: 'home',
-  template: 'home'
+  template: 'home',
+  waitOn: function(){
+    var currentUser = Meteor.userId();
+    if (currentUser) {
+      return Meteor.subscribe("rooms", currentUser);
+    } else {
+      return false;
+    }
+  }
 });
 
 Router.route('/thanks');
@@ -29,6 +37,7 @@ Router.route('/room/:_id',{
     });
   },
   waitOn: function(){
-    return Meteor.subscribe("rooms");
+    var allRooms = Meteor.subscribe("rooms","");
+    return allRooms;
   }
 });

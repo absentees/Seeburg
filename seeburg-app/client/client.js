@@ -4,10 +4,6 @@ Template.roomList.helpers({
   }
 });
 
-Template.home.onCreated(function() {
-  this.subscribe('rooms');
-});
-
 Template.home.onRendered(function() {
   var validator = $('.request').validate({
     submitHandler: function(event) {
@@ -29,6 +25,14 @@ Template.home.events({
   'submit form': function(event) {
     event.preventDefault();
   }
+});
+
+Template.navigation.events({
+  'click .logout': function(event) {
+      event.preventDefault();
+      Meteor.logout();
+      Router.go('login');
+    }
 });
 
 Template.login.events({
@@ -65,7 +69,8 @@ Template.login.onRendered(function() {
             })
           }
         } else {
-          var currentRouter = Router.current().route.getName();
+          var currentRoute = Router.current().route.getName();
+          console.log(currentRoute);
           if (currentRoute == "login") {
             Router.go("home");
           }
@@ -80,8 +85,21 @@ Template.newRoomPage.events({
   'submit form': function(event) {
     event.preventDefault();
     var roomName = $('[name=roomName]').val();
-    var roomId = Meteor.call('createNewRoom', roomName);
-    Router.go('/room/' + roomId);
+    Meteor.call('createNewRoom', roomName, function(err,data){
+        Router.go('/room/' + data);
+    });
+  }
+});
+
+Template.roomPage.events({
+  "submit .newTrackForm": function(event){
+     event.preventDefault();
+     console.log('submit');
+     var trackName = $('[name=newTrackName]').val();
+     var trackArtist = "Track Artist";
+     var trackURL = "http://soundcloud.com/";
+     var roomId = this._id;
+     Meteor.call('addNewTrack', trackName, trackArtist, trackURL, roomId);
   }
 });
 

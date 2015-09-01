@@ -45,12 +45,24 @@ Meteor.methods({
       throw new Meteor.Error("not-logged-in", "you are not logged in.");
     }
     return Rooms.insert(data);
+  },
+  'addNewTrack': function(trackName, trackArtist, trackURL, roomId){
+    var currentUser = Meteor.userId();
+    var currentRoom = Rooms.findOne({ _id: roomId });
+
+    console.log('user:' + currentUser);
+    console.log('room: ' + currentRoom._id);
+    console.log('track: ' + trackName + " " + trackArtist + " " + trackURL);
   }
 });
 
-Meteor.publish('rooms', function() {
-  var currentUser = this.userId;
-  return Rooms.find({
-    createdBy: currentUser
-  });
+Meteor.publish('rooms', function(currentUser) {
+  if (currentUser) {
+    return Rooms.find({
+      createdBy: currentUser
+    });
+  } else {
+    return Rooms.find({});
+  }
+
 });

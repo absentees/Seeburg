@@ -1,13 +1,11 @@
 <head>
   <title>seeburg-app</title>
   <link href='https://fonts.googleapis.com/css?family=Cutive+Mono:400' rel='stylesheet' type='text/css'>
-  <meta name="viewport" content="width=device-width">
+  <meta content="width=device-width" name="viewport">
 
 </head>
 
-<body>
-
-</body>
+<body></body>
 
 <template name="main">
   <div>
@@ -30,39 +28,52 @@
 <template name="home">
 
   {{#if currentUser}}
-  <p>your rooms:</p>
-  {{> roomList }}
-  {{else}}
-  <p>
-    enter your email address for an invite code.
-  </p>
-  <form class="request">
+    <p>your rooms:</p>
+    {{> roomList }}
+    {{else}}
     <p>
-      <input type="email" name="email" class="required email">
-      <input type="submit" value="request">
+      enter your email address for an invite code.
     </p>
-    <label id="email-error" class="error" for="email"></label>
-  </form>
+    <form class="request">
+      <p>
+        <input class="required email" name="email" type="email">
+        <input type="submit" value="request">
+      </p>
+      <label class="error" for="email" id="email-error"></label>
+    </form>
   {{/if}}
 </template>
 
 <template name="roomList">
   <ul>
     {{#each room}}
-    <li>> <a href="{{pathFor route="roomPage"}}">{{name}}</a></li>
+      <li>>
+        <a href="{{pathFor route="roomPage"}}">{{name}}</a>
+      </li>
     {{/each}}
   </ul>
 </template>
 
 <template name="roomPage">
-  <p>room: {{ name }}</p>
-  <p>now playing: </p>
+  <p>room name: {{ name }}</p>
+  <p>now playing:
+  </p>
+  <p>
+    _________________________________________________
+  </p>
+  <p>
+    <form class="newTrackForm">
+      add track: <input name="newTrackName" placeholder="type new track name here..." required type="text"> <input type="submit" value="add track">
+    </form>
+  </p>
   <p>up next:</p>
 </template>
 
 <template name="thanks">
   <p>thank you, please check your email for your invite code.</p>
-  <p><a href="{{pathFor route='home'}}">back to home</a></p>
+  <p>
+    <a href="{{pathFor route='home'}}">back to home</a>
+  </p>
 </template>
 
 <template name="holding">
@@ -70,30 +81,43 @@
 </template>
 
 <template name="navigation">
-  <p><a href="{{pathFor route='home'}}">home</a> | {{ #if currentUser }}<a href="{{pathFor route='newRoomPage'}}">new room</a> {{else}}<a href="{{pathFor route='login'}}">login</a>{{/if}}</p>
-  <p>***************************************************</p>
+  <p>
+    <a href="{{pathFor route='home'}}">home</a>
+    |
+    {{ #if currentUser }}
+    <a href="{{pathFor route='newRoomPage'}}">new room</a>
+    |
+    <a class="logout" href="#">logout</a>
+    {{else}}
+    <a href="{{pathFor route='login'}}">login</a>
+  {{/if}}
+</p>
+<p>***************************************************</p>
 </template>
 
 <template name="login">
-  <p>we are currently not accepting registrations, in the mean time you can <a href="{{pathFor route='home'}}">get your invite code</a> for when beta begins.</p>
-  <form class="login">
-    <p>login:
-      <input type="email" name="email" required>
-      <label id="email-error" class="error" for="email"></label>
-    </p>
-    <p>password:
-      <input type="password" name="password" required>
-      <input type="submit" value="login">
-    </p>
-  </form>
+<p>we are currently not accepting registrations, in the mean time you can
+  <a href="{{pathFor route='home'}}">get your invite code</a>
+  for when beta begins.</p>
+<form class="login">
+  <p>login:
+    <input name="email" required type="email">
+    <label class="error" for="email" id="email-error"></label>
+  </p>
+  <p>password:
+    <input name="password" required type="password">
+    <input type="submit" value="login">
+  </p>
+</form>
 </template>
 
 <template name="register">
-  <p>nothing here, soz.</p>
+<p>nothing here, soz.</p>
 </template>
 
 <template name="newRoomPage">
-  <form>
-    <p><input type="text" placeholder="type room name here..." name="roomName" required> <input type="submit" value="create"></p>
-  </form>
+<form>
+  <p><input name="roomName" placeholder="type room name here..." required type="text">
+    <input type="submit" value="create"></p>
+</form>
 </template>
