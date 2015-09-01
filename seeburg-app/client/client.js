@@ -4,6 +4,22 @@ Template.roomList.helpers({
   }
 });
 
+Template.roomItem.events({
+  'click .deleteRoom': function(){
+    console.log('delete');
+    event.preventDefault();
+    var roomId = this._id;
+    var confirm = window.confirm("actually delete?");
+    if (confirm) {
+      Meteor.call("deleteRoom", roomId, function(error, result){
+        if(error){
+          console.log("error", error);
+        }
+      });
+    }
+  }
+});
+
 Template.home.onRendered(function() {
   var validator = $('.request').validate({
     submitHandler: function(event) {

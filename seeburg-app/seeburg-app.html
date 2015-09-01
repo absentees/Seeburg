@@ -47,11 +47,13 @@
 <template name="roomList">
   <ul>
     {{#each room}}
-      <li>>
-        <a href="{{pathFor route="roomPage"}}">{{name}}</a>
-      </li>
+      {{> roomItem}}
     {{/each}}
   </ul>
+</template>
+
+<template name="roomItem">
+  <li>> <a href="{{pathFor route="roomPage"}}">{{name}}</a> [<a href="#" class="deleteRoom">x</a>]</li>
 </template>
 
 <template name="roomPage">

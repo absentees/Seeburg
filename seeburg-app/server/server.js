@@ -46,6 +46,17 @@ Meteor.methods({
     }
     return Rooms.insert(data);
   },
+  'deleteRoom': function(roomId){
+      var currentUser = Meteor.userId();
+      var data = Rooms.findOne({ _id: roomId, createdBy: currentUser});
+      if (data) {
+        Rooms.remove({
+          _id: roomId
+        });
+      } else {
+        throw new Meteor.Error("room-not-found", "room not found.");
+      }
+  },
   'addNewTrack': function(trackName, trackArtist, trackURL, roomId){
     var currentUser = Meteor.userId();
     var currentRoom = Rooms.findOne({ _id: roomId });
