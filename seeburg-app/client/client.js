@@ -117,42 +117,42 @@ Template.newRoomPage.events({
 });
 
 Template.roomPage.events({
-  "submit .newTrackForm": function(event) {
-    event.preventDefault();
+  "keyup [name=newTrackName]": function(event) {
+    var searchQuery = $(event.target).val();
+    if (searchQuery == "") {
+      Session.set('searchResults', []);
+    } else {
+      HTTP.get("https://api.soundcloud.com/tracks?client_id=7a50c29ed854bb6bf4a2aea13b640eed", {
+          params: {
+            q: searchQuery
+          }
+        },
+        function(error, result) {
+          if (!error) {
+            Session.set("searchResults", result.data);
+          } else {
+            Session.set("searchResults", []);
+          }
+        });
+    }
+
+  },
+  "click .searchResult": function(event) {
     console.log('submit');
-    var trackName = $('[name=newTrackName]').val();
+    var trackName = $(event.target).text();
     var trackArtist = "Track Artist";
     var trackURL = "http://soundcloud.com/";
-    var roomId = this._id;
+    var roomId = "roomid";
+
     Meteor.call('addNewTrack', trackName, trackArtist, trackURL, roomId);
   }
 });
 
-
-Template.roomPage.onCreated(function() {});
-
-
-Template.roomPage.onRendered(function() {
-  HTTP.call("GET", "https://api.soundcloud.com/tracks?client_id=7a50c29ed854bb6bf4a2aea13b640eed", {
-      data: {
-        some: "json",
-        stuff: 1
-      }
-    },
-    function(error, result) {
-      if (!error) {
-        Session.set("twizzled", true);
-      }
-    });
-
-  /*  var url = 'https://api.soundcloud.com/tracks?client_id=7a50c29ed854bb6bf4a2aea13b640eed';
-    $.getJSON(url, function(tracks) {
-      $(tracks).each(function(track) {
-        console.log(track.title);
-      }
-    });*/
+Template.roomPage.helpers({
+  searchResults: function() {
+    return Session.get('searchResults');
+  }
 });
-
 
 
 

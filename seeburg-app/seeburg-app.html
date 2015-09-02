@@ -68,6 +68,14 @@
       add track: <input name="newTrackName" placeholder="type new track name here..." required type="text"> <input type="submit" value="add track">
     </form>
   </p>
+  <p>
+    results:
+    <ul class="searchResults">
+      {{#each searchResults}}
+        <li class="searchResult">{{title}}</li>
+      {{/each}}
+    </ul>
+  </p>
   <p>up next:</p>
 </template>
 

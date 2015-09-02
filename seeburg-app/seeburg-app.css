@@ -27,6 +27,13 @@ ul li{
   margin: 15px 0;
 }
 
+.searchResult{
+  margin: 0;
+}
+.searchResult:hover{
+  text-decoration: underline;
+}
+
 .selected{
   background-color: yellow;
 }
