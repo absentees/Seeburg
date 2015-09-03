@@ -142,7 +142,9 @@ Template.roomPage.events({
     var trackName = $(event.target).text();
     var trackArtist = "Track Artist";
     var trackURL = "http://soundcloud.com/";
-    var roomId = "roomid";
+    var roomId = this._id;
+    console.log(roomId);
+
 
     Meteor.call('addNewTrack', trackName, trackArtist, trackURL, roomId);
   }
