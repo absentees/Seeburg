@@ -57,7 +57,7 @@
 </template>
 
 <template name="roomPage">
-  <p>room name: {{ name }} - {{ roomId }}</p>
+  <p>room name: {{ name }}</p>
   <p>now playing:
   </p>
   <p>
@@ -71,6 +71,7 @@
       {{ errorMessage }}
     </p>
   </p>
+  {{ #if searchResults }}
   <p>
     results:
     <ul class="searchResults">
@@ -79,7 +80,15 @@
       {{/each}}
     </ul>
   </p>
+  {{/if}}
   <p>up next:</p>
+  <p>
+    <ul class="upNext">
+      {{#each tracks}}
+        <li class="queuedTrack">{{name}} - [<a href="#" class="deleteQueuedTrack">x</a>]</li>
+      {{/each}}
+    </ul>
+  </p>
 </template>
 
 <template name="thanks">

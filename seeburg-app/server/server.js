@@ -39,7 +39,8 @@ Meteor.methods({
     var data = {
       name: roomName,
       createdBy: currentUser,
-      createdOn: Date.now()
+      createdOn: Date.now(),
+      tracks: []
     };
     if (!currentUser) {
       throw new Meteor.Error("not-logged-in", "you are not logged in.");
@@ -60,10 +61,21 @@ Meteor.methods({
   'addNewTrack': function(trackName, trackArtist, trackURL, roomId){
     var currentUser = Meteor.userId();
     var currentRoom = Rooms.findOne({ _id: roomId });
-
-    console.log('user:' + currentUser);
-    console.log('room: ' + currentRoom._id);
-    console.log('track: ' + trackName + " " + trackArtist + " " + trackURL);
+    var newTrack = {
+      name: trackName,
+      trackURL: trackURL
+    };
+    Rooms.update({
+      _id: roomId
+    }, {
+      $addToSet: {
+        tracks: newTrack
+      }
+    }, function(err,data){
+      if (err) {
+        console.log(err.reason);
+      }
+    })
   }
 });
 

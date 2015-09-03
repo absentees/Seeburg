@@ -27,7 +27,7 @@ ul li{
   margin: 15px 0;
 }
 
-.searchResult{
+.searchResult, .queuedTrack{
   margin: 0;
 }
 .searchResult:hover{

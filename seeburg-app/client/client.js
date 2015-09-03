@@ -147,8 +147,6 @@ Template.roomPage.events({
     Meteor.call('addNewTrack', trackName, trackArtist, trackURL, roomId, function(err,data){
       if (err) {
         Session.set('errorMessage', err.reason)
-      } else {
-        Session.set('searchResults', [])
       }
     });
 
@@ -162,7 +160,6 @@ Template.roomPage.helpers({
   errorMessage: function(){
     return "";
   }
-
 });
 
 Template.roomPage.onRendered(function(){
