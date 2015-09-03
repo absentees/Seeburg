@@ -32,6 +32,7 @@ ul li{
 }
 .searchResult:hover{
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .selected{

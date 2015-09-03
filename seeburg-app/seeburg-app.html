@@ -57,7 +57,7 @@
 </template>
 
 <template name="roomPage">
-  <p>room name: {{ name }}</p>
+  <p>room name: {{ name }} - {{ roomId }}</p>
   <p>now playing:
   </p>
   <p>
@@ -65,8 +65,11 @@
   </p>
   <p>
     <form class="newTrackForm">
-      <input name="newTrackName" placeholder="type new track name here..." required type="text"> <input type="submit" value="add track">
+      add track: <input name="newTrackName" placeholder="track name..." required type="text">
     </form>
+    <p>
+      {{ errorMessage }}
+    </p>
   </p>
   <p>
     results:

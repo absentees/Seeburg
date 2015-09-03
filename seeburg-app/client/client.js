@@ -142,18 +142,36 @@ Template.roomPage.events({
     var trackName = $(event.target).text();
     var trackArtist = "Track Artist";
     var trackURL = "http://soundcloud.com/";
-    var roomId = this._id;
-    console.log(roomId);
+    var roomId = Session.get('roomId');
 
+    Meteor.call('addNewTrack', trackName, trackArtist, trackURL, roomId, function(err,data){
+      if (err) {
+        Session.set('errorMessage', err.reason)
+      } else {
+        Session.set('searchResults', [])
+      }
+    });
 
-    Meteor.call('addNewTrack', trackName, trackArtist, trackURL, roomId);
   }
 });
 
 Template.roomPage.helpers({
   searchResults: function() {
     return Session.get('searchResults');
+  },
+  errorMessage: function(){
+    return "";
   }
+
+});
+
+Template.roomPage.onRendered(function(){
+  var roomId = this.data._id;
+  Session.set('roomId', roomId);
+});
+
+Template.roomPage.onDestroyed(function(){
+  Session.set('searchResults', []);
 });
 
 

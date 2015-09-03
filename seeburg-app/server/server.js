@@ -59,10 +59,10 @@ Meteor.methods({
   },
   'addNewTrack': function(trackName, trackArtist, trackURL, roomId){
     var currentUser = Meteor.userId();
-    //var currentRoom = Rooms.findOne({ _id: roomId });
+    var currentRoom = Rooms.findOne({ _id: roomId });
 
     console.log('user:' + currentUser);
-    //console.log('room: ' + currentRoom._id);
+    console.log('room: ' + currentRoom._id);
     console.log('track: ' + trackName + " " + trackArtist + " " + trackURL);
   }
 });
