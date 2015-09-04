@@ -149,7 +149,10 @@ Template.roomPage.events({
         Session.set('errorMessage', err.reason)
       }
     });
-
+  },
+  "click .deleteQueuedTrack": function(event){
+    var trackName = $(event.target).text();
+    console.log("delete track click: " + trackName);
   }
 });
 
