@@ -48,20 +48,25 @@ Meteor.methods({
     }
     return Rooms.insert(data);
   },
-  'deleteRoom': function(roomId){
-      var currentUser = Meteor.userId();
-      var data = Rooms.findOne({ _id: roomId, createdBy: currentUser});
-      if (data) {
-        Rooms.remove({
-          _id: roomId
-        });
-      } else {
-        throw new Meteor.Error("room-not-found", "room not found.");
-      }
-  },
-  'addNewTrack': function(trackName, trackArtist, trackURL, roomId){
+  'deleteRoom': function(roomId) {
     var currentUser = Meteor.userId();
-    var currentRoom = Rooms.findOne({ _id: roomId });
+    var data = Rooms.findOne({
+      _id: roomId,
+      createdBy: currentUser
+    });
+    if (data) {
+      Rooms.remove({
+        _id: roomId
+      });
+    } else {
+      throw new Meteor.Error("room-not-found", "room not found.");
+    }
+  },
+  'addNewTrack': function(trackName, trackArtist, trackURL, roomId) {
+    var currentUser = Meteor.userId();
+    var currentRoom = Rooms.findOne({
+      _id: roomId
+    });
     var newTrack = {
       _id: Meteor.hashid(),
       name: trackName,
@@ -74,27 +79,31 @@ Meteor.methods({
       $addToSet: {
         tracks: newTrack
       }
-    }, function(err,data){
+    }, function(err, data) {
       if (err) {
         console.log(err.reason);
       }
     })
   },
-  'deleteTrack': function(trackId, roomId, userId){
+  'deleteTrack': function(trackId, roomId, userId) {
     Rooms.update({
       _id: roomId
-    },{
+    }, {
       $pull: {
-        tracks: { _id: trackId }
+        tracks: {
+          _id: trackId
+        }
       }
-    }, function(err,data){
+    }, function(err, data) {
       if (err) {
         console.log(err.reason);
       }
     });
   },
-  'playTrack': function(trackId, roomId){
-    var currentRoom = Rooms.findOne({ _id: roomId });
+  'playTrack': function(trackId, roomId) {
+    var currentRoom = Rooms.findOne({
+      _id: roomId
+    });
     var trackToPlay;
     for (var i = 0; i < currentRoom.tracks.length; i++) {
       if (currentRoom.tracks[i]._id == trackId) {
@@ -105,10 +114,10 @@ Meteor.methods({
     Rooms.update({
       _id: roomId
     }, {
-      $set:{
+      $set: {
         currentlyPlaying: trackToPlay
-    }
-  });
+      }
+    });
 
   }
 });

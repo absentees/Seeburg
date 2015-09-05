@@ -143,38 +143,38 @@ Template.roomPage.events({
     var trackURL = this.uri;
     var roomId = Session.get('roomId');
 
-    Meteor.call('addNewTrack', trackName, trackArtist, trackURL, roomId, function(err,data){
+    Meteor.call('addNewTrack', trackName, trackArtist, trackURL, roomId, function(err, data) {
       if (err) {
         Session.set('errorMessage', err.reason)
       }
     });
 
   },
-  "click .deleteQueuedTrack": function(event){
+  "click .deleteQueuedTrack": function(event) {
     var trackId = this._id;
     var roomId = Session.get('roomId');
     var currentUser = Meteor.currentUser;
     console.log("current user: " + Meteor.userId());
-    Meteor.call('deleteTrack', trackId, roomId, currentUser, function(err,data){
+    Meteor.call('deleteTrack', trackId, roomId, currentUser, function(err, data) {
       if (err) {
         console.log("error when deleting track: " + err.reason);
       }
     });
   },
-  "click .queuedTrack": function(event){
+  "click .queuedTrack": function(event) {
     var trackId = this._id;
     var trackStreamURL = this.trackURL;
     var roomId = Session.get('roomId');
 
 
-    Meteor.call("playTrack", trackId, roomId, function(error, result){
-      if(error){
+    Meteor.call("playTrack", trackId, roomId, function(error, result) {
+      if (error) {
         console.log("error", error);
       }
     });
 
 
-    SC.stream(trackStreamURL, function(sound){
+    SC.stream(trackStreamURL, function(sound) {
       if (roomStream) {
         roomStream.stop();
       }
@@ -188,18 +188,18 @@ Template.roomPage.helpers({
   searchResults: function() {
     return Session.get('searchResults');
   },
-  errorMessage: function(){
+  errorMessage: function() {
     return "";
   }
 });
 
-Template.roomPage.onRendered(function(){
+Template.roomPage.onRendered(function() {
   var roomId = this.data._id;
   Session.set('roomId', roomId);
   roomStream = null;
 });
 
-Template.roomPage.onDestroyed(function(){
+Template.roomPage.onDestroyed(function() {
   Session.set('searchResults', []);
 });
 
