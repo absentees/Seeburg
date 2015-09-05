@@ -138,10 +138,9 @@ Template.roomPage.events({
 
   },
   "click .searchResult": function(event) {
-    console.log('submit');
-    var trackName = $(event.target).text();
-    var trackArtist = "Track Artist";
-    var trackURL = "http://soundcloud.com/";
+    var trackName = this.title;
+    var trackArtist = this.user.username;
+    var trackURL = this.uri;
     var roomId = Session.get('roomId');
 
     Meteor.call('addNewTrack', trackName, trackArtist, trackURL, roomId, function(err,data){
@@ -149,6 +148,7 @@ Template.roomPage.events({
         Session.set('errorMessage', err.reason)
       }
     });
+
   },
   "click .deleteQueuedTrack": function(event){
     var trackId = this._id;
@@ -163,15 +163,23 @@ Template.roomPage.events({
   },
   "click .queuedTrack": function(event){
     var trackId = this._id;
+    var trackStreamURL = this.trackURL;
     var roomId = Session.get('roomId');
-    console.log("track id: " + trackId);
+
+
     Meteor.call("playTrack", trackId, roomId, function(error, result){
       if(error){
         console.log("error", error);
       }
-      if(result){
+    });
 
+
+    SC.stream(trackStreamURL, function(sound){
+      if (roomStream) {
+        roomStream.stop();
       }
+      roomStream = sound;
+      roomStream.play();
     });
   }
 });
@@ -188,13 +196,12 @@ Template.roomPage.helpers({
 Template.roomPage.onRendered(function(){
   var roomId = this.data._id;
   Session.set('roomId', roomId);
+  roomStream = null;
 });
 
 Template.roomPage.onDestroyed(function(){
   Session.set('searchResults', []);
 });
-
-
 
 $.validator.setDefaults({
   rules: {

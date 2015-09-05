@@ -3,6 +3,13 @@
   <link href='https://fonts.googleapis.com/css?family=Cutive+Mono:400' rel='stylesheet' type='text/css'>
   <meta content="width=device-width" name="viewport">
 
+  <script src="//connect.soundcloud.com/sdk-2.0.0.js"></script>
+  <script>
+    SC.initialize({
+      client_id: '7a50c29ed854bb6bf4a2aea13b640eed'
+    });
+  </script>
+
 </head>
 
 <body></body>
@@ -76,7 +83,7 @@
     results:
     <ul class="searchResults">
       {{#each searchResults}}
-        <li class="searchResult">{{title}}</li>
+        {{> searchResult}}
       {{/each}}
     </ul>
   </p>
@@ -93,6 +100,10 @@
         no tracks added yet.
     {{/if}}
   </p>
+</template>
+
+<template name="searchResult">
+  <li class="searchResult">{{title}}</li>
 </template>
 
 <template name="queuedTrack">
