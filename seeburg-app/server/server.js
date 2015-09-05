@@ -40,7 +40,8 @@ Meteor.methods({
       name: roomName,
       createdBy: currentUser,
       createdOn: Date.now(),
-      tracks: []
+      tracks: [],
+      currentlyPlaying: ""
     };
     if (!currentUser) {
       throw new Meteor.Error("not-logged-in", "you are not logged in.");
@@ -62,8 +63,10 @@ Meteor.methods({
     var currentUser = Meteor.userId();
     var currentRoom = Rooms.findOne({ _id: roomId });
     var newTrack = {
+      _id: Meteor.hashid(),
       name: trackName,
-      trackURL: trackURL
+      trackURL: trackURL,
+      addedBy: currentUser
     };
     Rooms.update({
       _id: roomId
@@ -76,6 +79,37 @@ Meteor.methods({
         console.log(err.reason);
       }
     })
+  },
+  'deleteTrack': function(trackId, roomId, userId){
+    Rooms.update({
+      _id: roomId
+    },{
+      $pull: {
+        tracks: { _id: trackId }
+      }
+    }, function(err,data){
+      if (err) {
+        console.log(err.reason);
+      }
+    });
+  },
+  'playTrack': function(trackId, roomId){
+    var currentRoom = Rooms.findOne({ _id: roomId });
+    var trackToPlay;
+    for (var i = 0; i < currentRoom.tracks.length; i++) {
+      if (currentRoom.tracks[i]._id == trackId) {
+        trackToPlay = currentRoom.tracks[i];
+      }
+    }
+
+    Rooms.update({
+      _id: roomId
+    }, {
+      $set:{
+        currentlyPlaying: trackToPlay
+    }
+  });
+
   }
 });
 

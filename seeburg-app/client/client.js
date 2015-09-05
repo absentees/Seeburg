@@ -151,8 +151,28 @@ Template.roomPage.events({
     });
   },
   "click .deleteQueuedTrack": function(event){
-    var trackName = $(event.target).text();
-    console.log("delete track click: " + trackName);
+    var trackId = this._id;
+    var roomId = Session.get('roomId');
+    var currentUser = Meteor.currentUser;
+    console.log("current user: " + Meteor.userId());
+    Meteor.call('deleteTrack', trackId, roomId, currentUser, function(err,data){
+      if (err) {
+        console.log("error when deleting track: " + err.reason);
+      }
+    });
+  },
+  "click .queuedTrack": function(event){
+    var trackId = this._id;
+    var roomId = Session.get('roomId');
+    console.log("track id: " + trackId);
+    Meteor.call("playTrack", trackId, roomId, function(error, result){
+      if(error){
+        console.log("error", error);
+      }
+      if(result){
+
+      }
+    });
   }
 });
 

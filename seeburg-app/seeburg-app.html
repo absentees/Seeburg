@@ -29,7 +29,7 @@
 
   {{#if currentUser}}
     <p>your rooms:</p>
-    {{> roomList }}
+      {{> roomList }}
     {{else}}
     <p>
       enter your email address for an invite code.
@@ -58,7 +58,7 @@
 
 <template name="roomPage">
   <p>room name: {{ name }}</p>
-  <p>now playing:
+  <p>now playing: {{ currentlyPlaying.name }}
   </p>
   <p>
     _________________________________________________
@@ -83,12 +83,20 @@
   {{/if}}
   <p>up next:</p>
   <p>
+    {{#if tracks}}
     <ul class="upNext">
       {{#each tracks}}
-        <li class="queuedTrack">{{name}} - [<a href="#" class="deleteQueuedTrack">x</a>]</li>
+        {{> queuedTrack}}
       {{/each}}
     </ul>
+    {{else}}
+        no tracks added yet.
+    {{/if}}
   </p>
+</template>
+
+<template name="queuedTrack">
+  <li class="queuedTrack">{{name}} - [<a href="#" class="deleteQueuedTrack">x</a>]</li>
 </template>
 
 <template name="thanks">

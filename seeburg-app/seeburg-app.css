@@ -30,7 +30,8 @@ ul li{
 .searchResult, .queuedTrack{
   margin: 0;
 }
-.searchResult:hover{
+
+.searchResult:hover, .queuedTrack:hover{
   text-decoration: underline;
   cursor: pointer;
 }
