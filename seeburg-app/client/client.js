@@ -162,10 +162,10 @@ Template.roomPage.events({
     });
   },
   "click .queuedTrack": function(event) {
+    event.preventDefault();
     var trackId = this._id;
     var trackStreamURL = this.trackURL;
     var roomId = Session.get('roomId');
-
 
     Meteor.call("playTrack", trackId, roomId, function(error, result) {
       if (error) {
@@ -184,34 +184,37 @@ Template.roomPage.helpers({
     return "";
   },
   roomCurrentlyPlaying: function(){
-  //  var roomId = Session.get('roomId');
-    var currentRoom = Rooms.findOne({
-      _id: this._id
-    });
 
-    SC.stream(currentRoom.currentlyPlaying.trackURL,
-    {
-        useHTML5Audio: true,
-        preferFlash: false
-    }, function(sound) {
-      if (roomStream) {
-        roomStream.stop();
-      }
-      roomStream = sound;
-      roomStream.play();
-    });
 
-    console.log("play: " + currentRoom.currentlyPlaying.name);
+//    console.log(currentRoom.name);
+//    playTrack(currentRoom.currentlyPlaying.trackURL);
 
-    return currentRoom.currentlyPlaying.name;
   }
 });
+
+Tracker.autorun(function(){
+  Meteor.subscribe('currentlyPlayingURL', roomId);
+})
+
+var roomStream = null;
+function playTrack(url){
+  SC.stream(url,
+  {
+      useHTML5Audio: true,
+      preferFlash: false
+  }, function(sound) {
+    if (roomStream) {
+      roomStream.stop();
+    }
+    roomStream = sound;
+
+  });
+}
 
 Template.roomPage.onRendered(function() {
   var roomId = this.data._id;
   Session.set('roomId', roomId);
-  roomStream = null;
-
+  Session.setDefault('playURL', '')
 });
 
 Template.roomPage.onDestroyed(function() {
