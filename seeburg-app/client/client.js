@@ -173,14 +173,6 @@ Template.roomPage.events({
       }
     });
 
-
-    SC.stream(trackStreamURL, function(sound) {
-      if (roomStream) {
-        roomStream.stop();
-      }
-      roomStream = sound;
-      roomStream.play();
-    });
   }
 });
 
@@ -190,6 +182,28 @@ Template.roomPage.helpers({
   },
   errorMessage: function() {
     return "";
+  },
+  roomCurrentlyPlaying: function(){
+  //  var roomId = Session.get('roomId');
+    var currentRoom = Rooms.findOne({
+      _id: this._id
+    });
+
+    SC.stream(currentRoom.currentlyPlaying.trackURL,
+    {
+        useHTML5Audio: true,
+        preferFlash: false
+    }, function(sound) {
+      if (roomStream) {
+        roomStream.stop();
+      }
+      roomStream = sound;
+      roomStream.play();
+    });
+
+    console.log("play: " + currentRoom.currentlyPlaying.name);
+
+    return currentRoom.currentlyPlaying.name;
   }
 });
 
@@ -197,6 +211,7 @@ Template.roomPage.onRendered(function() {
   var roomId = this.data._id;
   Session.set('roomId', roomId);
   roomStream = null;
+
 });
 
 Template.roomPage.onDestroyed(function() {

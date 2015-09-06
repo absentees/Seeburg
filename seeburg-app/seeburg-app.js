@@ -4,7 +4,8 @@ Rooms = new Meteor.Collection('rooms');
 
 Router.configure({
   layoutTemplate: 'main',
-  loadingTemplate: 'loading'
+  loadingTemplate: 'loading',
+  notFoundTemplate: 'notFound'
 });
 
 Router.route('/', {

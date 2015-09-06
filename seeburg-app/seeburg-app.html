@@ -65,7 +65,7 @@
 
 <template name="roomPage">
   <p>room name: {{ name }}</p>
-  <p>now playing: {{ currentlyPlaying.name }}
+  <p>now playing: {{ roomCurrentlyPlaying }}
   </p>
   <p>
     _________________________________________________
@@ -161,4 +161,10 @@
   <p><input name="roomName" placeholder="type room name here..." required type="text">
     <input type="submit" value="create"></p>
 </form>
+</template>
+
+<template name="notFound">
+  <p>
+    nothing here.
+  </p>
 </template>

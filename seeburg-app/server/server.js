@@ -118,7 +118,6 @@ Meteor.methods({
         currentlyPlaying: trackToPlay
       }
     });
-
   }
 });
 
