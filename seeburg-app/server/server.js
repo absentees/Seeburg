@@ -99,6 +99,13 @@ Meteor.methods({
         console.log(err.reason);
       }
     });
+
+    var currentRoom = Rooms.findOne({ _id: roomId });
+    if (currentRoom.currentlyPlaying) {
+      if (currentRoom.currentlyPlaying._id == trackId) {
+        Meteor.call('stopTrack', roomId);
+      }
+    }
   },
   'playTrack': function(trackId, roomId) {
     var currentRoom = Rooms.findOne({

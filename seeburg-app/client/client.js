@@ -146,6 +146,8 @@ Template.roomPage.events({
     Meteor.call('addNewTrack', trackName, trackArtist, trackURL, roomId, function(err, data) {
       if (err) {
         Session.set('errorMessage', err.reason)
+      } else{
+        Session.set('searchResults',[])
       }
     });
 
@@ -225,9 +227,13 @@ Template.roomPage.onRendered(function() {
     var query = Rooms.find({ _id: roomId });
     var handle = query.observeChanges({
       changed: function(id, fields){
+        console.log(fields);
         if (fields.currentlyPlaying) {
           console.log(fields.currentlyPlaying.trackURL);
           playTrack(fields.currentlyPlaying.trackURL);
+        }
+        if (fields.currentlyPlaying == null) {
+          stopTrack();
         }
       }
     });

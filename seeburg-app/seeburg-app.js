@@ -42,3 +42,7 @@ Router.route('/room/:_id',{
     return allRooms;
   }
 });
+
+Accounts.config({
+  forbidClientAccountCreation : true
+});
