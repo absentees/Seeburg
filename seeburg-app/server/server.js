@@ -118,6 +118,13 @@ Meteor.methods({
         currentlyPlaying: trackToPlay
       }
     });
+  },
+  'stopTrack': function(roomId){
+    Rooms.update({
+      _id: roomId
+    },{
+      $unset: { currentlyPlaying: 1 }
+    });
   }
 });
 
@@ -130,8 +137,3 @@ Meteor.publish('rooms', function(currentUser) {
     return Rooms.find({});
   }
 });
-
-Meteor.publish('currentlyPlayingURL', function(roomId){
-  var room = Rooms.findOne({ _id: roomId });
-  return room.currentlyPlaying.trackURL;
-})
