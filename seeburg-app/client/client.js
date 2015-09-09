@@ -177,10 +177,6 @@ Template.roomPage.events({
         console.log(result);
       }
     });
-
-//    playTrack(trackStreamURL);
-//    roomStream.play();
-
   }
 });
 
@@ -192,8 +188,6 @@ Template.roomPage.helpers({
     return "";
   }
 });
-
-
 
 var roomStream = null;
 function playTrack(url){
@@ -216,20 +210,19 @@ function stopTrack(){
 
 Template.roomPage.onRendered(function() {
   var roomId = this.data._id;
+  var query = Rooms.find({ _id: roomId });
   Session.set('roomId', roomId);
-  Session.setDefault('playURL', '');
+
   SC.initialize({
     client_id: '7a50c29ed854bb6bf4a2aea13b640eed'
   });
 
+  // setup currentlyPlaying observer
   Tracker.autorun(function(){
-    var roomId = Session.get('roomId');
-    var query = Rooms.find({ _id: roomId });
     var handle = query.observeChanges({
       changed: function(id, fields){
         console.log(fields);
         if (fields.currentlyPlaying) {
-          console.log(fields.currentlyPlaying.trackURL);
           playTrack(fields.currentlyPlaying.trackURL);
         }
         if (fields.currentlyPlaying == null) {
@@ -239,19 +232,21 @@ Template.roomPage.onRendered(function() {
     });
   });
 
-});
+  // start currently playing track if there is one
+  playTrack(query.fetch()[0].currentlyPlaying.trackURL);
 
-Template.roomPage.onDestroyed(function() {
-  Session.set('searchResults', []);
-  var roomId = this.data._id;
-  Meteor.call("stopTrack", roomId, function(error, result){
+  // add listener
+  Meteor.call("addListener", roomId, function(error, result){
     if(error){
       console.log("error", error);
     }
-
-    stopTrack();
-
   });
+
+});
+
+Template.roomPage.onDestroyed(function() {
+  Session.keys = {};
+  stopTrack();
 });
 
 $.validator.setDefaults({

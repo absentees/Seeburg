@@ -100,7 +100,9 @@ Meteor.methods({
       }
     });
 
-    var currentRoom = Rooms.findOne({ _id: roomId });
+    var currentRoom = Rooms.findOne({
+      _id: roomId
+    });
     if (currentRoom.currentlyPlaying) {
       if (currentRoom.currentlyPlaying._id == trackId) {
         Meteor.call('stopTrack', roomId);
@@ -126,12 +128,41 @@ Meteor.methods({
       }
     });
   },
-  'stopTrack': function(roomId){
+  'stopTrack': function(roomId) {
     Rooms.update({
       _id: roomId
-    },{
-      $unset: { currentlyPlaying: 1 }
+    }, {
+      $unset: {
+        currentlyPlaying: 1
+      }
     });
+  },
+  'addListener': function(roomId, userId) {
+    if (!userId) {
+      // add guest listener
+      Rooms.update({
+        _id: roomId
+      }, {
+        $inc: {
+          guestListeners: 1
+        }
+      })
+    } else {
+      Rooms.update({
+        _id: roomId
+      }, {
+        $addToSet: {
+          listeners: userId
+        }
+      }, function(err, data) {
+        if (err) {
+          console.log(err.reason);
+        }
+      })
+    }
+  },
+  'removeListener': function(roomId) {
+    console.log('remove listener from room: ' + roomId);
   }
 });
 
