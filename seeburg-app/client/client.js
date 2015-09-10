@@ -146,8 +146,8 @@ Template.roomPage.events({
     Meteor.call('addNewTrack', trackName, trackArtist, trackURL, roomId, function(err, data) {
       if (err) {
         Session.set('errorMessage', err.reason)
-      } else{
-        Session.set('searchResults',[])
+      } else {
+        Session.set('searchResults', [])
       }
     });
 
@@ -178,15 +178,16 @@ Template.roomPage.events({
       }
     });
   },
-  "click .controlPlay": function(event){
-      console.log("clicked play");
+  "click .controlPlay": function(event) {
+    event.preventDefault();
+    playTrack();
   },
-  "click .controlStop": function(event){
+  "click .controlStop": function(event) {
     event.preventDefault();
     stopTrack();
   },
-  "click .controlSkip": function(event){
-    console.log("clicked skip");
+  "click .controlSkip": function(event) {
+    event.preventDefault();
   }
 });
 
@@ -196,39 +197,45 @@ Template.roomPage.helpers({
   },
   errorMessage: function() {
     return "";
-  },
-  currentListeners: function(){
-    return (this.guestListeners + this.listeners.length);
   }
 });
 
 var roomStream = null;
-function playTrack(url){
-  SC.stream(url,
-  {
+
+function playTrack(url) {
+  if (url) {
+    SC.stream(url, {
       useHTML5Audio: true,
       preferFlash: false
-  }, function(sound) {
-    if (roomStream) {
-      roomStream.stop();
-    }
-    roomStream = sound;
+    }, function(sound) {
+      if (roomStream) {
+        roomStream.stop();
+      }
+      roomStream = sound;
+      roomStream.play();
+    });
+  } else{
     roomStream.play();
-  });
+  }
 }
 
-function stopTrack(){
+function stopTrack() {
   roomStream.stop();
+}
+
+function skipTrack(){
 }
 
 Template.roomPage.onRendered(function() {
   var roomId = this.data._id;
-  var query = Rooms.find({ _id: roomId });
+  var query = Rooms.find({
+    _id: roomId
+  });
   Session.set('roomId', roomId);
   // add listener
-  Meteor.call("addListener", roomId, Meteor.userId(), function(error, result){
+  Meteor.call("addListener", roomId, Meteor.userId(), function(error, result) {
     console.log('add listeners');
-    if(error){
+    if (error) {
       console.log("error", error);
     }
   });
@@ -238,9 +245,9 @@ Template.roomPage.onRendered(function() {
   });
 
   // setup currentlyPlaying observer
-  Tracker.autorun(function(){
+  Tracker.autorun(function() {
     var handle = query.observeChanges({
-      changed: function(id, fields){
+      changed: function(id, fields) {
         console.log(fields);
         if (fields.currentlyPlaying) {
           playTrack(fields.currentlyPlaying.trackURL);
@@ -260,8 +267,6 @@ Template.roomPage.onRendered(function() {
 Template.roomPage.onDestroyed(function() {
   var roomId = this.data._id;
   Session.keys = {};
-  Meteor.call("removeListener", roomId, Meteor.userId());
-  console.log(huh);
   stopTrack();
 });
 
