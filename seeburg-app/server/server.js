@@ -41,7 +41,9 @@ Meteor.methods({
       createdBy: currentUser,
       createdOn: Date.now(),
       tracks: [],
-      currentlyPlaying: ""
+      currentlyPlaying: "",
+      guestListeners: 0,
+      listeners: []
     };
     if (!currentUser) {
       throw new Meteor.Error("not-logged-in", "you are not logged in.");
@@ -161,8 +163,32 @@ Meteor.methods({
       })
     }
   },
-  'removeListener': function(roomId) {
-    console.log('remove listener from room: ' + roomId);
+  'removeListener': function(roomId, userId) {
+    console.log('remove listener');
+    if (!userId) {
+      // add guest listener
+      Rooms.update({
+        _id: roomId
+      }, {
+        $inc: {
+          guestListeners: -1
+        }
+      })
+    } else {
+      Rooms.update({
+        _id: roomId
+      }, {
+        $pull: {
+          listeners: userId
+        }
+      }, function(err, data) {
+        if (err) {
+          console.log(err.reason);
+        }
+      })
+    }
+
+    return 'all good';
   }
 });
 
