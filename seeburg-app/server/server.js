@@ -138,6 +138,22 @@ Meteor.methods({
         currentlyPlaying: 1
       }
     });
+  },
+  'skipTrack': function(roomId){
+    var currentRoom = Rooms.findOne({
+      _id: roomId
+    });
+
+    // Move first track to end of array and set currentlyPlaying
+    currentRoom.tracks.push(currentRoom.tracks.shift());
+    Rooms.update({
+      _id: roomId
+    }, {
+      $set:{
+        tracks: currentRoom.tracks,
+        currentlyPlaying: currentRoom.tracks[0]
+      }
+    });
   }
 });
 
