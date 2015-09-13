@@ -125,24 +125,7 @@ Template.roomPage.events({
   },
   "click .controlSkip": function(event) {
     event.preventDefault();
-    var roomId = this._id;
-    Meteor.call("skipTrack", roomId, function(error, result){
-      if(error){
-        console.log("error", error);
-      }
-    });
-
-    /*
-    Meteor.call("playTrack", trackId, roomId, function(error, result) {
-      if (error) {
-        console.log("error", error);
-      }
-      if (result) {
-        console.log(result);
-      }
-    });
-
-    */
+    skipTrack();
   }
 });
 
@@ -161,21 +144,39 @@ function playTrack(url) {
   if (url) {
     SC.stream(url, {
       useHTML5Audio: true,
-      preferFlash: false
+      preferFlash: false,
+      onfinish: function() {
+        skipTrack();
+      }
     }, function(sound) {
+      sound._player._html5Audio.addEventListener('ended', function() {
+        skipTrack();
+      });
+
       if (roomStream) {
         roomStream.stop();
       }
       roomStream = sound;
       roomStream.play();
     });
-  } else{
+  } else {
     roomStream.play();
   }
 }
 
 function stopTrack() {
   roomStream.stop();
+}
+
+function skipTrack() {
+  console.log('skip track');
+  var roomId = Session.get("roomId");
+  Meteor.call("skipTrack", roomId, function(error, result) {
+    if (error) {
+      console.log("error", error);
+    }
+  });
+
 }
 
 Template.roomPage.onRendered(function() {
