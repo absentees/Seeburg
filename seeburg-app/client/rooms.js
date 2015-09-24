@@ -135,7 +135,16 @@ Template.roomPage.helpers({
   },
   errorMessage: function() {
     return "";
-  }
+  },
+	roomOwner: function(){
+    var currentUser = Meteor.userId();
+		var roomOwner = this.createdBy;
+		if (currentUser == roomOwner) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 });
 
 var roomStream = null;

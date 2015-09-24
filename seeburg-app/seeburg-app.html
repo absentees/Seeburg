@@ -60,9 +60,11 @@
   <p>room name: {{ name }}</p>
 
   <p>now playing: {{ currentlyPlaying.name }}</p>
-  <p>
-    <a href="#" class="controlPlay">&#9658;</a> | <a href="#" class="controlStop">&#9632;</a> | <a href="#" class="controlSkip">&#9658;&#9658;</a>
-  </p>
+	{{ #if roomOwner  }}
+		<p>
+	    <a href="#" class="controlPlay">&#9658;</a> | <a href="#" class="controlStop">&#9632;</a> | <a href="#" class="controlSkip">&#9658;&#9658;</a>
+	  </p>
+	{{ /if }}
   <p>
     _________________________________________________
   </p>

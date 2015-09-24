@@ -1,3 +1,15 @@
+var isRoomOwner = function(roomId){
+	var currentRoom = Rooms.findOne({
+		_id: roomId
+	});
+
+	if (currentRoom.createdBy == Meteor.userId()) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 Meteor.methods({
   'requestInvite': function(recipientEmail) {
     this.unblock();
@@ -51,6 +63,10 @@ Meteor.methods({
     return Rooms.insert(data);
   },
   'deleteRoom': function(roomId) {
+		if (!isRoomOwner(roomId)) {
+			throw new Meteor.Error("operation-not-allowed", "operation not allowed by current user");
+		}
+
     var currentUser = Meteor.userId();
     var data = Rooms.findOne({
       _id: roomId,
@@ -88,6 +104,14 @@ Meteor.methods({
     })
   },
   'deleteTrack': function(trackId, roomId, userId) {
+		var currentRoom = Rooms.findOne({
+      _id: roomId
+    });
+
+		if (!isRoomOwner(roomId)) {
+			throw new Meteor.Error("operation-not-allowed", "operation not allowed by current user");
+		}
+
     Rooms.update({
       _id: roomId
     }, {
@@ -102,9 +126,6 @@ Meteor.methods({
       }
     });
 
-    var currentRoom = Rooms.findOne({
-      _id: roomId
-    });
     if (currentRoom.currentlyPlaying) {
       if (currentRoom.currentlyPlaying._id == trackId) {
         Meteor.call('stopTrack', roomId);
@@ -115,6 +136,10 @@ Meteor.methods({
     var currentRoom = Rooms.findOne({
       _id: roomId
     });
+
+		if (!isRoomOwner(roomId)) {
+			throw new Meteor.Error("operation-not-allowed", "operation not allowed by current user");
+		}
     var trackToPlay;
     for (var i = 0; i < currentRoom.tracks.length; i++) {
       if (currentRoom.tracks[i]._id == trackId) {
@@ -131,6 +156,10 @@ Meteor.methods({
     });
   },
   'stopTrack': function(roomId) {
+		if (!isRoomOwner(roomId)) {
+			throw new Meteor.Error("operation-not-allowed", "operation not allowed by current user");
+		}
+
     Rooms.update({
       _id: roomId
     }, {
@@ -139,7 +168,7 @@ Meteor.methods({
       }
     });
   },
-  'skipTrack': function(roomId){
+	'skipTrack': function(roomId){
     var currentRoom = Rooms.findOne({
       _id: roomId
     });
