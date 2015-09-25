@@ -150,6 +150,7 @@ Template.roomPage.helpers({
 var roomStream = null;
 
 function playTrack(url) {
+	console.log('play track');
   if (url) {
     SC.stream(url, {
       useHTML5Audio: true,
@@ -174,7 +175,13 @@ function playTrack(url) {
 }
 
 function stopTrack() {
+	var roomId = Session.get("roomId");
   roomStream.stop();
+	Meteor.call("stopTrack", roomId, function(error, result) {
+    if (error) {
+      console.log("error", error);
+    }
+  });
 }
 
 function skipTrack() {
@@ -185,7 +192,6 @@ function skipTrack() {
       console.log("error", error);
     }
   });
-
 }
 
 Template.roomPage.onRendered(function() {
@@ -204,10 +210,10 @@ Template.roomPage.onRendered(function() {
     var handle = query.observeChanges({
       changed: function(id, fields) {
         console.log(fields);
-        if (fields.currentlyPlaying) {
+        if (fields.currentlyPlaying != null) {
           playTrack(fields.currentlyPlaying.trackURL);
         }
-        if (fields.currentlyPlaying == null) {
+        if (fields.currentlyPlaying == "-") {
           stopTrack();
         }
       }
