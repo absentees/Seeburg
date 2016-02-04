@@ -20,6 +20,7 @@ ejson@1.0.6
 email@1.0.6
 fastclick@1.0.3
 fortawesome:fontawesome@4.4.0
+fourseven:scss@3.2.0
 geojson-utils@1.0.3
 gwendall:session-json@0.1.7
 houston:admin@2.0.5
@@ -50,6 +51,7 @@ minifiers@1.1.5
 minimongo@1.0.8
 mobile-status-bar@1.0.3
 mongo@1.1.0
+mquandalle:bower@1.4.1_3
 msavin:jetsetter@1.0.20
 msavin:mongol@1.1.5
 npm-bcrypt@0.7.8_2
