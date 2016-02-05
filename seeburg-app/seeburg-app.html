@@ -118,17 +118,17 @@
 </template>
 
 <template name="navigation">
-  <p>
+  <nav>
     <a href="{{pathFor route='home'}}">home</a>
-    |
+
     {{ #if currentUser }}
     <a href="{{pathFor route='newRoomPage'}}">new room</a>
-    |
+
     <a class="logout" href="#">logout</a>
     {{else}}
     <a href="{{pathFor route='login'}}">login</a>
   {{/if}}
-</p>
+</nav>
 <p>***************************************************</p>
 </template>
 
