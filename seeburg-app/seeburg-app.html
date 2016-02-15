@@ -1,6 +1,5 @@
 <head>
   <title>seeburg-app</title>
-  <link href='https://fonts.googleapis.com/css?family=Cutive+Mono:400' rel='stylesheet' type='text/css'>
   <meta content="width=device-width" name="viewport">
   <script src="//connect.soundcloud.com/sdk-2.0.0.js"></script>
 </head>
@@ -10,11 +9,14 @@
 <template name="main">
   <div>
     <div class="container">
-      <h1>seeburg</h1>
-      <h2>...</h2>
-      {{> navigation }}
-      {{> yield}}
-
+			<div class="inner -left">
+				<h1>seeburg</h1>
+	      <h2>...</h2>
+	      {{> navigation }}
+			</div>
+			<div class="inner -right">
+				{{> yield}}
+			</div>
     </div>
   </div>
 </template>

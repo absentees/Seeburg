@@ -19,31 +19,3 @@ ul li{
 .selected{
   background-color: yellow;
 }
-
-input{
-  border: none;
-  background: none;
-  cursor:pointer;
-  border-bottom: 1px solid black;
-}
-
-input:hover{
-  cursor: text;
-}
-
-input:focus{
-  cursor: default;
-  outline: none;
-}
-
-input[type=submit]{
-  border: none;
-  background: none;
-  text-decoration: underline;
-  cursor:pointer;
-  padding-bottom: 0;
-}
-
-input[type=submit]:focus{
-  outline: none;
-}

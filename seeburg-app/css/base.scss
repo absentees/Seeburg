@@ -1,11 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,300|Roboto+Condensed:400,700italic,700,400italic,300italic,300);
-
 html, body{
-	font-size: 65.5%;
-	font-family: 'Roboto Condensed', sans-serif;
-	font-weight: 400;
-	color: black;
-
   width: 100%;
   margin: 0;
   padding: 0;
@@ -13,6 +6,20 @@ html, body{
 }
 
 .container{
-  margin: 50px 0 0 50px;
-  min-width: 100%;
+	@include outer-container(100%);
+  padding: 50px 0 0 50px;
+}
+
+.inner{
+	float: left;
+
+	&.-left{
+		@include span-columns(4);
+		border-right: 1px solid black;
+	}
+
+	&.-right{
+		@include span-columns(8);
+		@include omega();
+	}
 }
