@@ -6,7 +6,7 @@ html, body{
 }
 
 .container{
-	@include outer-container(100%);
+	// @include outer-container(100%);
   padding: 50px 0 0 50px;
 }
 
@@ -14,12 +14,12 @@ html, body{
 	float: left;
 
 	&.-left{
-		@include span-columns(4);
+		// @include span-columns(4);
 		border-right: 1px solid black;
 	}
 
 	&.-right{
-		@include span-columns(8);
-		@include omega();
+		// @include span-columns(8);
+		// @include omega();
 	}
 }
