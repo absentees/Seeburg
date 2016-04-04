@@ -14,9 +14,6 @@ timbrandin:hashids
 http
 msavin:jetsetter
 houston:admin
-fortawesome:fontawesome
-mquandalle:bower
-fourseven:scss
 meteor-base
 mobile-experience
 mongo
@@ -32,3 +29,4 @@ spacebars
 check
 standard-minifier-css
 standard-minifier-js
+fourseven:scss

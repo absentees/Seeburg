@@ -1,9 +1,0 @@
-{
-  "name": "seeburg-app",
-  "version": "0.0.1",
-  "dependencies": {
-    "bourbon": "~4.2.6",
-    "neat": "~1.7.2"
-  },
-  "private": true
-}
