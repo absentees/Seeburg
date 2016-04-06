@@ -29,6 +29,10 @@ html, body{
 
 	background-color: black;
 
+	a{
+		text-decoration: none;
+	}
+
 	h1{
 		font-size: 1rem;
 		font-weight: lighter;
@@ -36,10 +40,12 @@ html, body{
 	}
 }
 
-nav{
-	position: absolute;
+$navWidth: 200px;
 
-	width: 250px;
+nav{
+	float: left;
+
+	width: $navWidth;
 	height: 100vh;
 	padding: 10px;
 
@@ -56,4 +62,9 @@ nav{
 
 .inner{
 	float: left;
+	width: calc(100% - $navWidth);
+
+	&.-main{
+		padding: 50px;
+	}
 }

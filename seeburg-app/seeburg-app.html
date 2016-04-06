@@ -8,11 +8,11 @@
 
 <template name="main">
 	<div class="header-bar">
-		<h1>seeburg</h1>
+		<a href="{{pathFor route='home'}}"><h1>seeburg</h1></a>
 	</div>
   <div class="container">
 	  {{> navigation }}
-		<div class="inner -right">
+		<div class="inner -main">
 			{{> yield}}
 		</div>
 	</div>
@@ -23,21 +23,9 @@
 </template>
 
 <template name="home">
-
   {{#if currentUser}}
     <p>your rooms:</p>
       {{> roomList }}
-    {{else}}
-    <p>
-      enter your email address for an invite code.
-    </p>
-    <form class="request">
-      <p>
-        <input class="required email" name="email" type="email">
-        <input type="submit" value="request">
-      </p>
-      <label class="error" for="email" id="email-error"></label>
-    </form>
   {{/if}}
 </template>
 
@@ -116,16 +104,28 @@
   <p>coming soon...</p>
 </template>
 
+<!--  								-->
+<!-- 		NAVIGATION 		-->
+<!--  								-->
 <template name="navigation">
   <nav>
-    <a href="{{pathFor route='home'}}">home</a>
-
+		<!-- TODO: Move log in to top right -->
     {{ #if currentUser }}
     <a href="{{pathFor route='newRoomPage'}}">new room</a>
 
     <a class="logout" href="#">logout</a>
     {{else}}
-    <a href="{{pathFor route='login'}}">login</a>
+	    <a href="{{pathFor route='login'}}">Not logged in</a>
+			<!-- <p>
+				enter your email address for an invite code.
+			</p> -->
+			<!-- <form class="request">
+				<p>
+					<input class="required email" name="email" type="email">
+					<input type="submit" value="request">
+				</p>
+				<label class="error" for="email" id="email-error"></label>
+			</form> -->
   {{/if}}
 </nav>
 </template>
