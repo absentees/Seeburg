@@ -8,7 +8,11 @@
 
 <template name="main">
 	<div class="header-bar">
-		<a href="{{pathFor route='home'}}"><h1>seeburg</h1></a>
+		<a href="{{pathFor route='home'}}">
+			<h1>seeburg</h1>
+		</a>
+
+		{{> loginRegister}}
 	</div>
   <div class="container">
 	  {{> navigation }}
@@ -16,149 +20,4 @@
 			{{> yield}}
 		</div>
 	</div>
-</template>
-
-<template name="loading">
-  <p>loading...</p>
-</template>
-
-<template name="home">
-  {{#if currentUser}}
-    <p>your rooms:</p>
-      {{> roomList }}
-  {{/if}}
-</template>
-
-<template name="roomList">
-  <ul>
-    {{#each room}}
-      {{> roomItem}}
-    {{/each}}
-  </ul>
-</template>
-
-<template name="roomItem">
-  <li>> <a href="{{pathFor route="roomPage"}}">{{name}}</a> [<a href="#" class="deleteRoom">x</a> | <a href="#" class="cancel">cancel</a>]</li>
-</template>
-
-<template name="roomPage">
-  <p>room name: {{ name }}</p>
-
-  <p>now playing: {{ currentlyPlaying.name }}</p>
-	{{ #if roomOwner  }}
-		<p>
-	    <a href="#" class="controlPlay">&#9658;</a> | <a href="#" class="controlStop">&#9632;</a> | <a href="#" class="controlSkip">&#9658;&#9658;</a>
-	  </p>
-	{{ /if }}
-  <p>
-    _________________________________________________
-  </p>
-  <p>
-    <form class="newTrackForm">
-      add track: <input name="newTrackName" placeholder="track name..." required type="text">
-    </form>
-    <p>
-      {{ errorMessage }}
-    </p>
-  </p>
-  {{ #if searchResults }}
-  <p>
-    results:
-    <ul class="searchResults">
-      {{#each searchResults}}
-        {{> searchResult}}
-      {{/each}}
-    </ul>
-  </p>
-  {{/if}}
-  <p>up next:</p>
-  <p>
-    {{#if tracks}}
-    <ul class="upNext">
-      {{#each tracks}}
-        {{> queuedTrack}}
-      {{/each}}
-    </ul>
-    {{else}}
-        no tracks added yet.
-    {{/if}}
-  </p>
-</template>
-
-<template name="searchResult">
-  <li class="searchResult">{{title}}</li>
-</template>
-
-<template name="queuedTrack">
-  <li class="queuedTrack">{{name}} - [<a href="#" class="deleteQueuedTrack">x</a>]</li>
-</template>
-
-<template name="thanks">
-  <p>thank you, please check your email for your invite code.</p>
-  <p>
-    <a href="{{pathFor route='home'}}">back to home</a>
-  </p>
-</template>
-
-<template name="holding">
-  <p>coming soon...</p>
-</template>
-
-<!--  								-->
-<!-- 		NAVIGATION 		-->
-<!--  								-->
-<template name="navigation">
-  <nav>
-		<!-- TODO: Move log in to top right -->
-    {{ #if currentUser }}
-    <a href="{{pathFor route='newRoomPage'}}">new room</a>
-
-    <a class="logout" href="#">logout</a>
-    {{else}}
-	    <a href="{{pathFor route='login'}}">Not logged in</a>
-			<!-- <p>
-				enter your email address for an invite code.
-			</p> -->
-			<!-- <form class="request">
-				<p>
-					<input class="required email" name="email" type="email">
-					<input type="submit" value="request">
-				</p>
-				<label class="error" for="email" id="email-error"></label>
-			</form> -->
-  {{/if}}
-</nav>
-</template>
-
-<template name="login">
-<p>we are currently not accepting registrations, in the mean time you can
-  <a href="{{pathFor route='home'}}">get your invite code</a>
-  for when beta begins.</p>
-<form class="login">
-  <p>login:
-    <input name="email" required type="email">
-    <label class="error" for="email" id="email-error"></label>
-  </p>
-  <p>password:
-    <input name="password" required type="password">
-    <input type="submit" value="login">
-  </p>
-</form>
-</template>
-
-<template name="register">
-<p>nothing here, soz.</p>
-</template>
-
-<template name="newRoomPage">
-<form>
-  <p><input name="roomName" placeholder="type room name here..." required type="text">
-    <input type="submit" value="create"></p>
-</form>
-</template>
-
-<template name="notFound">
-  <p>
-    nothing here.
-  </p>
 </template>

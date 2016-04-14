@@ -1,0 +1,36 @@
+<template name="loginRegister">
+	<div class="loginRegister">
+	{{ #if currentUser }}
+		Hi, <a class="logout" href="#">logout</a>
+	{{ else }}
+		<a href="{{pathFor route='login'}}">Login</a> <a href="{{pathFor route='register'}}">Register</a>
+	{{ /if }}
+	</div>
+	<!-- TODO: Move log in to top right -->
+
+		<!-- <p>
+			enter your email address for an invite code.
+		</p> -->
+		<!-- <form class="request">
+			<p>
+				<input class="required email" name="email" type="email">
+				<input type="submit" value="request">
+			</p>
+			<label class="error" for="email" id="email-error"></label>
+		</form> -->
+
+
+<!-- <p>we are currently not accepting registrations, in the mean time you can
+  <a href="{{pathFor route='home'}}">get your invite code</a>
+  for when beta begins.</p>
+<form class="login">
+  <p>login:
+    <input name="email" required type="email">
+    <label class="error" for="email" id="email-error"></label>
+  </p>
+  <p>password:
+    <input name="password" required type="password">
+    <input type="submit" value="login">
+  </p>
+</form> -->
+</template>
