@@ -1,6 +1,15 @@
+@font-face
+{
+font-family: 'M+ M Type-1 (basic latin) Regular';
+src: url('mplus-1m-regular-sub.eot');
+src: url('mplus-1m-regular-sub.eot?#iefix') format('embedded-opentype'),
+url('mplus-1m-regular-sub.woff') format('woff'),
+url('mplus-1m-regular-sub.ttf') format('truetype');
+}
+
 html, body{
 	font-size: 65.5%;
-	font-family: 'mplus-1m-regular', monospace;
+	font-family: 'M+ M Type-1 (basic latin) Regular', monospace;
 	font-size: 16px;
 	color: #666666;
 	font-weight: 400;
