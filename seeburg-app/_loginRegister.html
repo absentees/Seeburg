@@ -3,12 +3,10 @@
 	{{ #if currentUser }}
 		Hi, <a class="logout" href="#">logout</a>
 	{{ else }}
-		<a href="{{pathFor route='login'}}">Login</a> <a href="{{pathFor route='register'}}">Register</a>
+		<a class="login" href="#">Login</a> <a class="register" href="#">Register</a>
 	{{ /if }}
 	</div>
-	<!-- TODO: Move log in to top right -->
-
-
+	{{> login}}
 
 <!-- <p>we are currently not accepting registrations, in the mean time you can
   <a href="{{pathFor route='home'}}">get your invite code</a>
@@ -25,15 +23,16 @@
 </form> -->
 </template>
 <template name="login">
-	<p>
-		enter your email address for an invite code.
-	</p>
-	<form class="request">
+	<div class="loginRegisterForm">
 		<p>
-			<input class="required email" name="email" type="email">
-			<input type="submit" value="request">
+			enter your email address for an invite code.
 		</p>
-		<label class="error" for="email" id="email-error"></label>
-	</form>
-
+		<form class="request">
+			<p>
+				<input class="required email" name="email" type="email">
+				<input type="submit" value="request">
+			</p>
+			<label class="error" for="email" id="email-error"></label>
+		</form>
+	</div>
 </template>
