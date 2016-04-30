@@ -1,15 +1,18 @@
-@font-face
-{
-font-family: 'M+ M Type-1 (basic latin) Regular';
-src: url('mplus-1m-regular-sub.eot');
-src: url('mplus-1m-regular-sub.eot?#iefix') format('embedded-opentype'),
-url('mplus-1m-regular-sub.woff') format('woff'),
-url('mplus-1m-regular-sub.ttf') format('truetype');
+@font-face {
+    font-family: 'm_1mregular';
+    src: url('./fonts/mplus-1m-regular-webfont.eot');
+    src: url('./fonts/mplus-1m-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./fonts/mplus-1m-regular-webfont.woff') format('woff'),
+         url('./fonts/mplus-1m-regular-webfont.ttf') format('truetype'),
+         url('./fonts/mplus-1m-regular-webfont.svg#m_1mregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
+
 
 html, body{
 	font-size: 65.5%;
-	font-family: 'M+ M Type-1 (basic latin) Regular', monospace;
+	font-family: 'm_1mregular', monospace;
 	font-size: 16px;
 	color: #666666;
 	font-weight: 400;
