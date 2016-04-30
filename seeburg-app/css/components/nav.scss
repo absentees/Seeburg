@@ -1,0 +1,19 @@
+$navWidth: 200px;
+
+nav{
+	float: left;
+
+	width: $navWidth;
+	height: 100vh;
+	padding: 10px;
+
+	border-right: 1px solid black;
+
+	background-color: white;
+
+	a{
+		display: block;
+		width: 100%;
+		text-align: center;
+	}
+}

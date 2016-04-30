@@ -27,7 +27,7 @@ Template.login.events({
   }
 });
 
-Template.login.onRendered(function() {
+Template.login.onRendered(function()   {
   var validator = $('.login').validate({
     rules: {
       emailAddress: {

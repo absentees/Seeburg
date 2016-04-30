@@ -1,0 +1,30 @@
+.header-bar{
+	max-width: 100%;
+	padding: 10px;
+	height: 20px;
+
+	border-bottom: 1px solid white;
+
+	background-color: black;
+  color: white;
+
+	a{
+	  color: white;
+		text-decoration: none;
+	}
+
+	h1.logo{
+		position: absolute;
+		left: 10px;
+		width:75%;
+		float: left;
+		font-size: 1rem;
+		font-weight: lighter;
+		color: white;
+	}
+
+	>.loginRegister{
+		position: absolute;
+		right: 10px;
+	}
+}
