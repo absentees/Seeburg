@@ -1,36 +1,77 @@
-.header-bar{
-	max-width: 100%;
-	padding: 10px;
-	height: 20px;
+.header-bar {
+  max-width: 100%;
+  padding: 10px;
+  height: 20px;
 
-	border-bottom: 1px solid white;
+  border-bottom: 1px solid white;
 
-	background-color: black;
+  background-color: black;
   color: white;
 
-	transition: all 500ms cubic-bezier(0.52, 0.01, 0, 1);
+  transition: all 500ms cubic-bezier(0.52, 0.01, 0, 1);
 
-	&.-active{
-		height: 150px;
-	}
+  &.-active {
+    height: 150px;
+  }
 
-	a{
-	  color: white;
-		text-decoration: none;
-	}
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
 
-	h1.logo{
-		position: absolute;
-		left: 10px;
-		width:75%;
-		float: left;
-		font-size: 1rem;
-		font-weight: lighter;
-		color: white;
-	}
+  .logo {
+    position: absolute;
+    left: 10px;
+    width: 75%;
+    float: left;
+    font-size: 1rem;
+    font-weight: lighter;
+    color: #fff;
+  }
 
-	>.loginRegister{
-		position: absolute;
-		right: 10px;
-	}
+  >.login-register {
+    position: absolute;
+    right: 10px;
+  }
+
+  .login-register-form {
+    display: none;
+
+    &.-active {
+      display: block;
+    }
+
+    input {
+      border: 0;
+      background: none;
+      cursor: pointer;
+      border-bottom: 4px solid #fff;
+    }
+
+    input:hover {
+      cursor: text;
+    }
+
+    input:focus {
+      cursor: default;
+      outline: none;
+    }
+
+    input[type=email] {
+    	width: 300px;
+    }
+
+    input[type=submit] {
+    	padding: 10px 40px;
+
+      border: 0;
+      background: none;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    input[type=submit]:focus {
+      outline: none;
+    }
+  }
 }

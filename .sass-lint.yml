@@ -1,0 +1,11 @@
+rules:
+  property-sort-order: 0
+  nesting-depth:
+    - 1
+    -
+      max-depth: 6
+  no-duplicate-properties:
+    - 1
+    -
+      exclude:
+        - background-image
