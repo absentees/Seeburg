@@ -1,0 +1,21 @@
+$nav-width: 200px;
+
+nav {
+  float: left;
+
+  width: $nav-width;
+  height: 100vh;
+  padding: 10px;
+
+  border-right: 1px solid $c-black;
+
+  background-color: $c-white;
+
+  a{
+  	display: block;
+  	width: 100%;
+  	text-align: center;
+
+    font-size: 1.6rem;
+  }
+}

@@ -1,31 +1,37 @@
-html, body{
+@import 'colours';
+@import 'typography';
+@import 'components/header';
+@import 'components/nav';
+
+html,
+body {
   width: 100%;
-	min-height: 100%;
+  min-height: 100%;
   margin: 0;
   padding: 0;
   border: 0;
+  }
+
+::selection {
+  background: $c-black;
 }
 
-::selection{
-	background: black;
-}
+  ::-moz-selection{
+  background: black;
+  }
 
-::-moz-selection{
-	background: black;
-}
-
-.container{
-	height: 100%;
-	min-height: 100%;
-	position: relative;
-}
+  .container{
+  height: 100%;
+  min-height: 100%;
+  position: relative;
+  }
 
 
-.inner{
-	float: left;
-	width: calc(100% - $navWidth);
+  .inner{
+  float: left;
+  width: calc(100% - $nav-width);
 
-	&.-main{
-		padding: 50px;
-	}
-}
+  &.-main{
+  	padding: 50px;
+  }
+  }
