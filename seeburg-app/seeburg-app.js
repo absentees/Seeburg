@@ -44,7 +44,7 @@ Router.route('/room/:_id',{
 });
 
 Accounts.config({
-  forbidClientAccountCreation : true
+  // forbidClientAccountCreation : true
 });
 
-Houston.add_collection(Meteor.users);
+// Houston.add_collection(Meteor.users);

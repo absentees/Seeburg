@@ -6,34 +6,24 @@
 		<a href="{{pathFor route='login'}}">Login</a> <a href="{{pathFor route='register'}}">Register</a>
 	{{ /if }}
 	</div>
-	<!-- TODO: Move log in to top right -->
-
-
-
-<!-- <p>we are currently not accepting registrations, in the mean time you can
-  <a href="{{pathFor route='home'}}">get your invite code</a>
-  for when beta begins.</p>
-<form class="login">
-  <p>login:
-    <input name="email" required type="email">
-    <label class="error" for="email" id="email-error"></label>
-  </p>
-  <p>password:
-    <input name="password" required type="password">
-    <input type="submit" value="login">
-  </p>
-</form> -->
 </template>
-<template name="login">
-	<p>
-		enter your email address for an invite code.
-	</p>
-	<form class="request">
-		<p>
-			<input class="required email" name="email" type="email">
-			<input type="submit" value="request">
-		</p>
-		<label class="error" for="email" id="email-error"></label>
-	</form>
 
+<template name="login">
+	<form class="login">
+		<input class="required email" type="email" name="email">
+		<input class="required password" type="password" name="password">
+		<input type="submit" value="register">
+		<label class="error" for="email" id="email-error"></label>
+		<label class="error" for="password" id="password-error"></label>
+	</form>
+</template>
+
+<template name="register">
+	<form class="register">
+		<input class="required email" name="email" type="email">
+		<input class="required password" name="password" type="password">
+		<input type="submit" value="register">
+		<label class="error" for="email" id="email-error"></label>
+		<label class="error" for="password" id="password-error"></label>
+	</form>
 </template>

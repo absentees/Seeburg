@@ -1,8 +1,9 @@
-<!--  								-->
-<!-- 		NAVIGATION 		-->
-<!--  								-->
 <template name="navigation">
   <nav>
-		<a href="{{pathFor route='newRoomPage'}}">new room</a>
+    {{#if currentUser}}
+      <p>rooms:</p>
+      {{> roomList }}
+      <a href="{{pathFor route='newRoomPage'}}">new room</a>
+    {{/if}}
 	</nav>
 </template>
